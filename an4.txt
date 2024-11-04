@@ -1,0 +1,134 @@
+1)app.component.css
+
+
+h1 {
+    text-align: center;
+    color: #ce2b2b;
+}
+
+nav a {
+    padding: 15px 20px;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+    background-color: aqua;
+    border-radius: 4px;
+    margin-left: 20px;
+}
+
+nav a:visited, a:link {
+    color: #3643b6;
+}
+
+nav a:hover {
+    color: #fff;
+    background-color: #3643b6;
+}
+
+nav a.active {
+    color: #ce2b2b;
+    background-color: #49ce0c;
+}
+
+2)app.module.ts
+
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FacultyComponent } from './faculty/faculty.component'; // Import Faculty component
+import { StudentComponent } from './student/student.component'; // Import Student component
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    FacultyComponent,
+    StudentComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+3)app.component.html
+
+
+<router-outlet></router-outlet>
+
+<nav>
+  <a routerLink="/f" style="padding: 10px;">FACULTY</a>
+  <a routerLink="/s" style="padding: 10px;">STUDENT</a>
+</nav>
+
+4)app-routing.module.ts
+
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { FacultyComponent } from './faculty/faculty.component'; // Import your faculty component
+import { StudentComponent } from './student/student.component'; // Import your student component
+
+const routes: Routes = [
+  { path: 'f', component: FacultyComponent },
+  { path: 's', component: StudentComponent },
+  { path: '', redirectTo: '/f', pathMatch: 'full' } // Redirect to faculty by default
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+5)student.component.html
+
+
+<p>student works!</p>
+<h1>Student Login Form</h1>
+<form>
+    <div class="container">
+        <label>Username:</label>
+        <input type="text" placeholder="Enter Username" name="username" required><br>
+        
+        <label>Password:</label>
+        <input type="password" placeholder="Enter Password" name="password" required><br>
+        
+        <button type="submit">Login</button>
+        <input type="checkbox" checked="checked"> Remember me
+        
+        <button type="button" class="cancelbtn">Cancel</button>
+        <a href="#">Forgot password?</a>
+    </div>
+</form>
+
+6)faculty.component.html
+
+
+<h1>Faculty Login Form</h1>
+<form>
+    <div class="container">
+        <div>
+            <label>Username:</label><br>
+            <input type="text" placeholder="Enter Username" name="username" required>
+        </div>
+        
+        <div>
+            <label>Password:</label><br>
+            <input type="password" placeholder="Enter Password" name="password" required>
+        </div>
+        
+        <button type="submit">Login</button>
+        <input type="checkbox" checked="checked"> Remember me<br>
+
+        <button type="button" class="cancelbtn">Cancel</button>
+        <a href="#">Forgot password?</a>
+    </div>
+</form>
+

@@ -1,0 +1,70 @@
+1)app.component.html
+
+
+<table style="margin: 0 auto; border: 1px black solid;">
+  <thead>
+    <tr>
+      <th style="border: 1px black solid; padding: 15px;">Name</th>
+      <th style="border: 1px black solid; padding: 15px;">Id</th>
+      <th style="border: 1px black solid; padding: 15px;">Email</th>
+      <th style="border: 1px black solid; padding: 15px;">Street</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of userList">
+      <td style="border: 1px black solid; padding: 15px;">{{ user.name }}</td>
+      <td style="border: 1px black solid; padding: 15px;">{{ user.id }}</td>
+      <td style="border: 1px black solid; padding: 15px;">{{ user.email }}</td>
+      <td style="border: 1px black solid; padding: 15px;">{{ user.address.street }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+2)app.component.ts
+
+
+import { Component, OnInit } from '@angular/core';
+import { FetchDataService } from './fetch-data.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  title = 'Demo';
+  userList: any[] = [];
+
+  constructor(private fetchService: FetchDataService) {}
+
+  ngOnInit(): void {
+    this.fetchService.getUser().subscribe(user => this.userList = user);
+  }
+}
+
+3)fetch-data.service.ts
+
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FetchDataService {
+  constructor(private http: HttpClient) { }
+
+  getUser(): Observable<any> {
+    return this.http.get("https://jsonplaceholder.typicode.com/users");
+  }
+}
+
+
+commands:
+
+
+1)ng g s fetch-data
+
+2)ng s -o

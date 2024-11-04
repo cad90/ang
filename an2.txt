@@ -1,0 +1,68 @@
+exp2:
+-------
+
+
+
+1)form.component.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Registration Details</title>
+    <style>
+        body {
+            background-color: blue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <fieldset>
+            <legend>Personal Details</legend>
+            <p>
+                <label>
+                    Salutation
+                    <br/>
+                    <select name="salutation">
+                        <option>--None--</option>
+                        <option>Mr.</option>
+                        <option>Ms.</option>
+                        <option>Mrs.</option>
+                        <option>Dr.</option>
+                        <option>Prof.</option>
+                    </select>
+                </label>
+            </p>
+            <p>
+                <label>First name: <input name="firstName" type="text"/></label>
+            </p>
+            <p>
+                <label>Last name: <input name="lastName" type="text"/></label>
+            </p>
+            <p> Gender:
+                <label><input type="radio" name="gender" value="male"/> Male</label>
+                <label><input type="radio" name="gender" value="female"/> Female</label>
+            </p>
+            <p>
+                <label>Email: <input name="email" type="email"/></label>
+            </p>
+            <p>
+                <label>Date of Birth: <input name="birthDate" type="date"/></label>
+            </p>
+            <p>
+                <label>Address: <br/><textarea name="address" cols="30" rows="3"></textarea></label>
+            </p>
+            <p>
+                <button type="submit">Submit</button>
+            </p>
+        </fieldset>
+    </form>
+</body>
+</html>
+
+
+
+2)app.component.html
+
+<app-form></app-form>

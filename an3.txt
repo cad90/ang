@@ -1,0 +1,133 @@
+1)app.component.css
+
+
+
+.container-fluid {
+    max-width: 600px; /* Set a max width for the form */
+    margin: 50px auto; /* Center the form */
+    padding: 20px; /* Add padding around the form */
+    border: 1px solid #ccc; /* Add a light border */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    background-color: #f9f9f9; /* Light background color */
+}
+
+h1 {
+    text-align: center; /* Center the title */
+    color: #333; /* Darker text color */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Spacing between form groups */
+}
+
+label {
+    font-weight: bold; /* Make labels bold */
+    display: block; /* Ensure labels are block elements */
+    margin-bottom: 5px; /* Spacing below labels */
+}
+
+.input-control {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding inside inputs */
+    border: 1px solid #ccc; /* Border for inputs */
+    border-radius: 4px; /* Rounded corners for inputs */
+}
+
+.btn {
+    width: 100%; /* Full width for the button */
+    padding: 10px; /* Padding for button */
+    background-color: #007bff; /* Primary button color */
+    color: white; /* Text color for button */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.btn:hover {
+    background-color: #0056b3; /* Darker button color on hover */
+}
+
+2)app-routing.module.ts
+
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = []; // Fixed the 'const' keyword
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+3)app.module.ts
+
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+4)app.component.ts
+
+
+import { Component } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  title = 'exp3';
+  registrationForm = new FormGroup({
+    username: new FormControl('Admin'),
+    password: new FormControl(''),
+    cfnpassword: new FormControl('')
+  });
+  loginRequest() {
+    console.log(this.registrationForm.value);
+  }
+}
+
+5)app.component.html
+
+
+<div class="container-fluid">
+  <h1>Registration Form</h1>
+  <form [formGroup]="registrationForm" (ngSubmit)="loginRequest()">
+      <div class="form-group">
+          <label for="username">Name</label>
+          <input formControlName="username" type="text" class="form-control" id="username">
+      </div>
+      <div class="form-group">
+          <label for="password">Password</label>
+          <input formControlName="password" type="password" class="form-control" id="password">
+      </div>
+      <div class="form-group">
+          <label for="cfnpassword">Confirm Password</label>
+          <input formControlName="cfnpassword" type="password" class="form-control" id="cfnpassword">
+      </div>
+      <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+</div>
+

@@ -1,0 +1,150 @@
+1)app.module.ts
+
+
+import { NgModule } from '@angular/core';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AngularComponent } from './angular/angular.component';
+import { JavascriptComponent } from './javascript/javascript.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    AngularComponent,
+    JavascriptComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule
+  ],
+  providers: [
+    provideClientHydration()
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+2)app.component.html
+
+
+<router-outlet></router-outlet>
+
+<nav>
+  <a routerLink="/a" style="padding: 10px;">ANGULAR</a>
+  <a routerLink="/j" style="padding: 10px;">JAVASCRIPT</a>
+</nav>
+
+3)app-routing.module.ts
+
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+//import { AngularComponent } from './angular/angular.component'; // Import your faculty component
+import { JavascriptComponent } from './javascript/javascript.component'; // Import your student component
+import { AngularComponent } from './angular/angular.component';
+
+const routes: Routes = [
+  { path: 'a', component: AngularComponent },
+  { path: 'j', component: JavascriptComponent },
+  { path: '', redirectTo: '/a', pathMatch: 'full' } // Redirect to faculty by default
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+4)angular.component.ts
+
+import { Component } from '@angular/core';
+import { EnrollService } from '../Services/enroll.service';
+
+@Component({
+  selector: 'app-angular',
+  templateUrl: './angular.component.html',
+  styleUrls: ['./angular.component.css'],
+  providers: [EnrollService]
+})
+export class AngularComponent {
+  title = 'Angular';
+
+  constructor(private enrollService: EnrollService) {}
+
+  OnEnroll() {
+    this.enrollService.OnEnrollClicked(this.title);
+  }
+}
+
+
+5)angular.component.html
+
+
+<p>angular works!</p>
+<div class="container">
+    <div>
+        <img src="https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg" alt="Angular" style="width: 240px; height: 180px;">
+    </div>
+    <div style="text-align: left; padding: 2px 50px;">
+        <h3>{{ title }} Course</h3>
+    </div>
+    <div style="text-align: left; padding: 2px 80px;">
+        <button (click)="OnEnroll()" style="background-color: blue; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
+            Enroll
+        </button>
+    </div>
+</div>
+
+6)javascript.component.ts
+
+
+import { Component } from '@angular/core';
+import { EnrollService } from '../Services/enroll.service';
+
+@Component({
+  selector: 'app-javascript',
+  templateUrl: './javascript.component.html',
+  styleUrls: ['./javascript.component.css'],
+  providers: [EnrollService]
+})
+export class JavascriptComponent {
+  title = 'JavaScript';
+
+  constructor(private enrollService: EnrollService) {}
+
+  OnEnroll() {
+    this.enrollService.OnEnrollClicked(this.title);
+  }
+}
+
+7)javascript.component.html
+
+
+<p>javascript works!</p>
+<div class="container">
+    <div>
+        <img src="https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg" alt="JavaScript" style="width: 240px; height: 180px;">
+    </div>
+    <div style="text-align: left; padding: 2px 50px;">
+        <h3>{{ title }} Course</h3>
+    </div>
+    <div style="text-align: left; padding: 2px 80px;">
+        <button (click)="OnEnroll()" style="background-color: yellow; color: black; padding: 10px 20px; border: none; border-radius: 5px;">
+            Enroll
+        </button>
+    </div>
+</div>
+
+8)create a folder Services and create new file with named 
+enroll.service.ts
+
+
+export class EnrollService {
+    OnEnrollClicked(title: string) {
+      alert('Thank you for enrolling in the ' + title + ' course.');
+    }
+  }
+  
